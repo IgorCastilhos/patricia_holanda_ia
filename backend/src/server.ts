@@ -59,9 +59,16 @@ app.post('/api/chat', async (req: Request, res: Response): Promise<void> => {
     }
 
     res.end();
-  } catch (error) {
+  } catch (error: any) {
     console.error('Erro na comunicação com Ollama:', error);
-    res.status(500).json({ error: 'As estrelas estão nebulosas hoje...' });
+    
+    if (error.status_code === 404 || error.message?.includes('not found')) {
+      res.status(500).json({
+        error: 'Modelo "arcangelina" não encontrado. Execute: ./init-ollama.sh'
+      });
+    } else {
+      res.status(500).json({ error: 'As estrelas estão nebulosas hoje...' });
+    }
   }
 });
 
