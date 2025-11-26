@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   frontend:
     build: ./frontend
@@ -37,7 +35,7 @@ services:
       - "11434:11434"
     volumes:
       - ollama_data:/root/.ollama
-      - ./Modelfile:/tmp/arcangelina.Modelfile:ro
+      - ./Modelfile:/root/Modelfile:ro
       - ./init-ollama.sh:/tmp/init-ollama.sh:ro
     networks:
       - app-network
@@ -56,7 +54,7 @@ services:
         echo "✨ Verificando se o modelo 'arcangelina' já existe..."
         if ! ollama list | grep -q "arcangelina"; then
           echo "🌟 Criando modelo 'arcangelina' a partir do Modelfile..."
-          ollama create arcangelina -f /tmp/arcangelina.Modelfile
+          ollama create arcangelina -f /root/Modelfile
           echo "✨ Modelo 'arcangelina' criado com sucesso!"
         else
           echo "🔮 Modelo 'arcangelina' já existe!"
