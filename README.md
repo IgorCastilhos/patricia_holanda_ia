@@ -75,6 +75,21 @@ Após o deploy, acesse:
 
 ### 🔧 Troubleshooting
 
+**Erro 502 Bad Gateway:**
+Se você receber um erro 502 ao tentar usar o chat, execute:
+```bash
+chmod +x fix-502.sh
+./fix-502.sh
+```
+
+Ou manualmente:
+```bash
+docker compose down
+docker compose up -d --build
+```
+
+Para mais detalhes, consulte o arquivo `TROUBLESHOOTING_502.md`.
+
 **Se o modelo não funcionar:**
 ```bash
 # Entre no container do Ollama

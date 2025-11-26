@@ -21,6 +21,14 @@ interface ChatRequest {
 }
 
 // Controller (Presentation Layer)
+app.get('/api/health', (req: Request, res: Response): void => {
+  res.json({
+    status: 'ok',
+    timestamp: new Date().toISOString(),
+    service: 'Mesa Cósmica Backend'
+  });
+});
+
 app.post('/api/chat', async (req: Request, res: Response): Promise<void> => {
   try {
     const { message, history } = req.body as ChatRequest;
