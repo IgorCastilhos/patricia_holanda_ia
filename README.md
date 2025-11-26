@@ -2,51 +2,47 @@
 
 Sistema de chat com IA usando Ollama, React e Node.js.
 
-## 🚀 Deploy na VPS Hostinger
+## 🚀 Deploy na Hostinger (ou qualquer VPS)
 
-### Pré-requisitos
-- VPS com Docker e Docker Compose instalados
+### ✨ Processo Automático
+
+Este projeto está configurado para **inicialização 100% automática**! 
+
+Quando você enviar o repositório para a Hostinger e ela executar o `docker-compose up`, o sistema vai:
+
+1. ✅ Subir o container do Ollama
+2. ✅ **Criar automaticamente o modelo "arcangelina"** usando o Modelfile
+3. ✅ Subir o backend conectado ao Ollama
+4. ✅ Subir o frontend
+
+**Não é necessário executar nenhum comando shell manual!** 🎉
+
+### Pré-requisitos na VPS
+- Docker e Docker Compose instalados
 - Portas 80, 3001 e 11434 liberadas no firewall
-- Git instalado
 
-### Passo a Passo
+### Como Funciona
 
-1. **Clone o repositório na VPS:**
+O `docker-compose.yml` foi configurado para:
+- Montar o `Modelfile` dentro do container do Ollama
+- Executar automaticamente um script de inicialização que:
+  - Verifica se o modelo "arcangelina" existe
+  - Se não existir, cria o modelo usando `ollama create arcangelina -f /tmp/Modelfile`
+  - Mantém o serviço rodando
+
+### 🔍 Comandos Úteis (Opcional)
+
+**Ver logs para acompanhar a criação do modelo:**
 ```bash
-git clone <seu-repositorio>
-cd teste_ia
+docker compose logs -f ollama
 ```
 
-2. **Inicie os containers:**
-```bash
-docker compose up -d --build
-```
-
-3. **Aguarde os containers iniciarem (cerca de 1-2 minutos) e inicialize o modelo Ollama:**
-```bash
-chmod +x init-ollama.sh
-./init-ollama.sh
-```
-
-4. **Verifique o status:**
+**Ver status de todos os serviços:**
 ```bash
 docker compose ps
 ```
 
-### 🔍 Comandos Úteis
-
-**Ver logs:**
-```bash
-# Todos os serviços
-docker compose logs -f
-
-# Apenas um serviço
-docker compose logs -f backend
-docker compose logs -f frontend
-docker compose logs -f ollama
-```
-
-**Reiniciar serviços:**
+**Reiniciar todos os serviços:**
 ```bash
 docker compose restart
 ```
@@ -56,49 +52,33 @@ docker compose restart
 docker compose down
 ```
 
-**Parar e remover volumes:**
-```bash
-docker compose down -v
-```
-
-**Acessar o shell de um container:**
-```bash
-docker exec -it <container-name> sh
-```
-
 ### 🌐 Acessando a Aplicação
 
 Após o deploy, acesse:
 - **Frontend:** http://seu-ip-ou-dominio
-- **Backend API:** http://seu-ip-ou-dominio/api/chat
+- **Backend API:** http://seu-ip-ou-dominio:3001/api/chat
 - **Ollama:** http://seu-ip-ou-dominio:11434
 
 ### 🔧 Troubleshooting
 
-**Erro 502 Bad Gateway:**
-Se você receber um erro 502 ao tentar usar o chat, execute:
+**Se o chat não responder imediatamente:**
+- O modelo pode estar sendo criado (leva 1-3 minutos na primeira vez)
+- Verifique os logs: `docker compose logs -f ollama`
+- Aguarde a mensagem "✨ Modelo 'arcangelina' criado com sucesso!"
+
+**Para verificar se o modelo foi criado:**
 ```bash
-chmod +x fix-502.sh
-./fix-502.sh
+docker exec -it $(docker ps -qf "name=ollama") ollama list
 ```
 
-Ou manualmente:
+Você deve ver "arcangelina" na lista.
+
+**Para recriar o modelo (se necessário):**
 ```bash
 docker compose down
+docker volume rm teste_ia_ollama_data
 docker compose up -d --build
 ```
-
-Para mais detalhes, consulte o arquivo `TROUBLESHOOTING_502.md`.
-
-**Se o modelo não funcionar:**
-```bash
-# Entre no container do Ollama
-docker exec -it $(docker ps -qf "name=ollama") sh
-
-# Liste os modelos
-ollama list
-
-# Recrie o modelo
 ollama create arcangelina -f /tmp/Modelfile
 ```
 

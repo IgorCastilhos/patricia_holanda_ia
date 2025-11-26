@@ -38,9 +38,35 @@ services:
     volumes:
       - ollama_data:/root/.ollama
       - ./Modelfile:/tmp/Modelfile
+      - ./init-ollama.sh:/tmp/init-ollama.sh
     networks:
       - app-network
     restart: unless-stopped
+    entrypoint: ["/bin/bash", "-c"]
+    command:
+      - |
+        # Inicia o Ollama em background
+        /bin/ollama serve &
+        
+        # Aguarda o Ollama ficar pronto
+        echo "🌌 Aguardando Ollama iniciar..."
+        sleep 15
+        
+        # Verifica e cria o modelo se necessário
+        echo "✨ Verificando se o modelo 'arcangelina' já existe..."
+        if ! ollama list | grep -q "arcangelina"; then
+          echo "🌟 Criando modelo 'arcangelina' a partir do Modelfile..."
+          ollama create arcangelina -f /tmp/Modelfile
+          echo "✨ Modelo 'arcangelina' criado com sucesso!"
+        else
+          echo "🔮 Modelo 'arcangelina' já existe!"
+        fi
+        
+        echo "🔮 Modelos disponíveis:"
+        ollama list
+        
+        # Mantém o container rodando
+        wait
 
 volumes:
   ollama_data:
