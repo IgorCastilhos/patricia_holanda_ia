@@ -1,0 +1,220 @@
+@import "tailwindcss";
+
+:root {
+    font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    font-weight: 400;
+    color-scheme: dark;
+    color: rgba(255, 255, 255, 0.87);
+    background-color: #0f0320;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+    margin: 0;
+    min-width: 320px;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+/* Animated Star Field */
+.stars, .stars2, .stars3 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    background: transparent;
+    animation: animStar 50s linear infinite;
+}
+
+.stars {
+    box-shadow: 779px 1331px #FFF, 324px 42px #FFF, 303px 586px #FFF,
+    1312px 276px #FFF, 451px 625px #FFF, 521px 1931px #FFF,
+    1087px 1871px #FFF, 36px 1546px #FFF, 132px 934px #FFF,
+    1698px 901px #FFF, 1418px 664px #FFF, 1448px 1157px #FFF,
+    1084px 232px #FFF, 347px 1776px #FFF, 1722px 243px #FFF,
+    1629px 835px #FFF, 479px 969px #FFF, 1231px 960px #FFF,
+    586px 384px #FFF, 164px 527px #FFF, 8px 646px #FFF,
+    1150px 1126px #FFF, 665px 1357px #FFF, 1556px 1982px #FFF,
+    1260px 1961px #FFF, 1675px 1741px #FFF, 1843px 1514px #FFF,
+    718px 1628px #FFF, 242px 1343px #FFF, 1497px 1880px #FFF,
+    1364px 1725px #FFF, 1027px 1368px #FFF, 1535px 1281px #FFF,
+    1964px 1206px #FFF, 1726px 1650px #FFF, 266px 529px #FFF,
+    1030px 1716px #FFF, 1888px 1332px #FFF, 1379px 1415px #FFF,
+    1412px 1605px #FFF, 1032px 1344px #FFF, 1167px 1451px #FFF,
+    1722px 1754px #FFF, 1948px 1542px #FFF, 1967px 1203px #FFF,
+    1491px 1696px #FFF, 1294px 1673px #FFF, 530px 1742px #FFF,
+    1925px 1672px #FFF, 1939px 952px #FFF, 1160px 1494px #FFF;
+}
+
+.stars2 {
+    box-shadow: 779px 1331px #FFF, 324px 42px #FFF, 303px 586px #FFF,
+    1312px 276px #FFF, 451px 625px #FFF, 521px 1931px #FFF,
+    1087px 1871px #FFF, 36px 1546px #FFF, 132px 934px #FFF,
+    1698px 901px #FFF, 1418px 664px #FFF, 1448px 1157px #FFF,
+    1084px 232px #FFF, 347px 1776px #FFF, 1722px 243px #FFF,
+    1629px 835px #FFF, 479px 969px #FFF, 1231px 960px #FFF,
+    586px 384px #FFF, 164px 527px #FFF, 8px 646px #FFF,
+    1150px 1126px #FFF, 665px 1357px #FFF, 1556px 1982px #FFF,
+    1260px 1961px #FFF, 1675px 1741px #FFF, 1843px 1514px #FFF,
+    718px 1628px #FFF, 242px 1343px #FFF, 1497px 1880px #FFF;
+    animation-delay: 1s;
+    animation-duration: 100s;
+}
+
+.stars3 {
+    box-shadow: 779px 1331px #FFF, 324px 42px #FFF, 303px 586px #FFF,
+    1312px 276px #FFF, 451px 625px #FFF, 521px 1931px #FFF,
+    1087px 1871px #FFF, 36px 1546px #FFF, 132px 934px #FFF,
+    1698px 901px #FFF, 1418px 664px #FFF, 1448px 1157px #FFF,
+    1084px 232px #FFF, 347px 1776px #FFF, 1722px 243px #FFF,
+    1629px 835px #FFF, 479px 969px #FFF, 1231px 960px #FFF,
+    586px 384px #FFF, 164px 527px #FFF;
+    animation-delay: 2s;
+    animation-duration: 150s;
+}
+
+@keyframes animStar {
+    from {
+        transform: translateY(0px);
+    }
+    to {
+        transform: translateY(-2000px);
+    }
+}
+
+/* Custom Animations */
+@keyframes pulse-slow {
+    0%, 100% {
+        opacity: 0.5;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+@keyframes pulse-slower {
+    0%, 100% {
+        opacity: 0.3;
+    }
+    50% {
+        opacity: 0.8;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+@keyframes spin-slow {
+    from {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}
+
+@keyframes spin-reverse {
+    from {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+    to {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+}
+
+@keyframes gradient-x {
+    0%, 100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Utility Classes */
+.animate-pulse-slow {
+    animation: pulse-slow 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-pulse-slower {
+    animation: pulse-slower 6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.animate-float {
+    animation: float 6s ease-in-out infinite;
+}
+
+.animate-spin-slow {
+    animation: spin-slow 20s linear infinite;
+}
+
+.animate-spin-reverse {
+    animation: spin-reverse 15s linear infinite;
+}
+
+.animate-gradient-x {
+    background-size: 200% auto;
+    animation: gradient-x 3s ease infinite;
+}
+
+.animate-fade-in {
+    animation: fade-in 1s ease-out;
+}
+
+.animate-slide-in {
+    animation: slide-in 0.4s ease-out;
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: rgba(15, 3, 32, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(168, 85, 247, 0.5);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: rgba(168, 85, 247, 0.7);
+}
+
